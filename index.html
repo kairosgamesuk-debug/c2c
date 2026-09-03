@@ -798,7 +798,17 @@ function renderHome(){
   s.appendChild(help);
   v.appendChild(s);
 
-  $("#cPhotos").textContent = STAGES.reduce((n,st)=>n+st.shots.filter(sh=>!sh[2]).length,0);
+  // start with the count that only excludes hardcoded skips, then correct it once the
+  // dynamic .skip marker files (from photo-tool.html's Skip button) have been checked
+  const allSlots = [];
+  STAGES.forEach(st=>st.shots.forEach((sh,i)=>{ if(!sh[2]) allSlots.push(slotFile(st,i)); }));
+  $("#cPhotos").textContent = allSlots.length;
+  Promise.all(allSlots.map(f=>
+    fetch(f.replace(/\.jpg$/i,".skip")+"?v="+V).then(r=>r.ok).catch(()=>false)
+  )).then(flags=>{
+    const skippedCount = flags.filter(Boolean).length;
+    if(skippedCount) $("#cPhotos").textContent = allSlots.length - skippedCount;
+  });
   // cover thumbs
   v.querySelectorAll(".cthumb").forEach(box=>{
     const f = box.dataset.cover;
@@ -837,7 +847,19 @@ function renderStage(id){
   // a shot entry's third value, when true, marks a photo that will never exist (path
   // closed, missed the moment, whatever) — skip it rather than showing a permanent
   // empty frame. Filename numbering for every other slot in the stage is untouched.
-  st.shots.forEach((shot,i)=>{ if(shot[2]) return; grid.appendChild(buildSlot(st,i)); });
+  st.shots.forEach((shot,i)=>{
+    if(shot[2]) return;
+    const file = slotFile(st,i);
+    const fig = buildSlot(st,i);
+    grid.appendChild(fig);
+    // a slot can also be skipped on the fly from photo-tool.html's "Skip" button, which
+    // writes a small marker file next to where the photo would have gone — d1-04.jpg's
+    // marker is d1-04.skip. If that file exists, drop the slot entirely rather than
+    // showing a permanent empty frame; no code edit needed for this to take effect.
+    fetch(file.replace(/\.jpg$/i,".skip")+"?v="+V)
+      .then(r=>{ if(r.ok) fig.remove(); })
+      .catch(()=>{});
+  });
   s.appendChild(grid);
 
   // prev / next
