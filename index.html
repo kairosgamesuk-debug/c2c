@@ -406,8 +406,8 @@ const STAGES = [
     ["The boot dip — toes in the Irish Sea at St Bees beach","wide"],
     ["Your pebble in the palm of your hand, beach behind it",""],
     ["The Wainwright start wall / official C2C sign",""],
-    ["St Bees Head — lighthouse and the red cliffs",""],
-    ["Dog on the clifftop path, sea over the shoulder",""],
+    ["St Bees Head — lighthouse and the red cliffs","",true],
+    ["Dog on the clifftop path, sea over the shoulder","",true],
     ["Dent Fell summit — the last look back at the sea",""],
     ["Nannycatch Beck, the hidden green valley",""],
     ["Tent pitched by the river at the Fox & Hounds",""]
@@ -758,9 +758,9 @@ function renderHome(){
   s.appendChild(buildFrontis());
   const intro = el("div");
   intro.innerHTML = `
-    <p class="lede">Eight days from Kirkby Stephen to the Irish Sea and all the way back across the
-      Lake District on foot. This is where the photographs and the notes land, one page for each
-      night's stop. Empty frames below are waiting to be filled.</p>
+    <p class="lede" id="introText">Eight days from Kirkby Stephen to the Irish Sea and all the way
+      back across the Lake District on foot. This is where the photographs and the notes land, one
+      page for each night's stop. Empty frames below are waiting to be filled.</p>
     <div class="counter">
       <div><b>82</b><span>Miles walked</span></div>
       <div><b>7</b><span>Walking days</span></div>
@@ -768,6 +768,13 @@ function renderHome(){
       <div><b id="cPhotos">—</b><span>Photo slots</span></div>
     </div>`;
   s.appendChild(intro);
+  // an overall write-up for the whole trip, edited in photo-tool.html and saved as intro.txt —
+  // falls back to the default paragraph above until that file exists
+  const introP = intro.querySelector("#introText");
+  fetch("intro.txt?v="+V)
+    .then(r=> r.ok ? r.text() : null)
+    .then(text=>{ if(text && text.trim()) introP.textContent = text.trim(); })
+    .catch(()=>{});
   const list = el("div","stagelist");
   STAGES.forEach(st=>{
     const a = el("a","card"); a.href = "#/"+st.id;
@@ -776,7 +783,7 @@ function renderHome(){
       <div class="cbody">
         <div class="cday">${st.day} · ${st.date}</div>
         <h3>${st.title}</h3>
-        <p><span class="dot ${st.night}"></span>${st.miles} · ${st.shots.length} photos</p>
+        <p><span class="dot ${st.night}"></span>${st.miles} · ${st.shots.filter(sh=>!sh[2]).length} photos</p>
       </div>`;
     list.appendChild(a);
   });
@@ -787,12 +794,11 @@ function renderHome(){
   help.style.display = "flex";
   help.style.flexWrap = "wrap";
   help.style.gap = "8px";
-  help.innerHTML = `<a class="btn" href="#/photos">How to add photos on the trail →</a>` +
-    `<a class="btn" href="${PLANNER}" target="_blank" rel="noopener">The planning site ↗</a>`;
+  help.innerHTML = `<a class="btn" href="${PLANNER}" target="_blank" rel="noopener">The planning site ↗</a>`;
   s.appendChild(help);
   v.appendChild(s);
 
-  $("#cPhotos").textContent = STAGES.reduce((n,st)=>n+st.shots.length,0);
+  $("#cPhotos").textContent = STAGES.reduce((n,st)=>n+st.shots.filter(sh=>!sh[2]).length,0);
   // cover thumbs
   v.querySelectorAll(".cthumb").forEach(box=>{
     const f = box.dataset.cover;
@@ -828,7 +834,10 @@ function renderStage(id){
   s.append(h,sub);
 
   const grid = el("div","grid"); grid.id="grid";
-  st.shots.forEach((_,i)=>grid.appendChild(buildSlot(st,i)));
+  // a shot entry's third value, when true, marks a photo that will never exist (path
+  // closed, missed the moment, whatever) — skip it rather than showing a permanent
+  // empty frame. Filename numbering for every other slot in the stage is untouched.
+  st.shots.forEach((shot,i)=>{ if(shot[2]) return; grid.appendChild(buildSlot(st,i)); });
   s.appendChild(grid);
 
   // prev / next
@@ -836,95 +845,10 @@ function renderStage(id){
   const nav = el("div"); nav.style.cssText="display:flex;justify-content:space-between;gap:12px;margin-top:40px";
   nav.innerHTML =
     (i>0 ? `<a class="btn" href="#/${STAGES[i-1].id}">← ${STAGES[i-1].day}</a>` : `<a class="btn" href="#/">← All stages</a>`) +
-    (i<STAGES.length-1 ? `<a class="btn" href="#/${STAGES[i+1].id}">${STAGES[i+1].day} →</a>` : `<a class="btn" href="#/photos">Photo help →</a>`);
+    (i<STAGES.length-1 ? `<a class="btn" href="#/${STAGES[i+1].id}">${STAGES[i+1].day} →</a>` : `<a class="btn" href="#/">All stages →</a>`);
   s.appendChild(nav);
   v.appendChild(s);
   drawSpine(st.id);
-}
-
-function renderPhotos(){
-  const v=$("#view"); v.innerHTML="";
-  const s = el("section","page");
-  s.innerHTML = `
-  <p class="eyebrow">Practical</p>
-  <h1 class="big">Getting photos<br><i>onto here</i></h1>
-  <p class="lede"><code>photo-tool.html</code> is where you choose the keepers and write their
-    captions — it resizes each photo and saves it under the exact filename a slot needs, and saves
-    each caption as a small matching text file, both straight into this site's folder. This site
-    itself doesn't upload or publish anything any more — it just shows whatever correctly-named
-    files it finds.</p>
-
-  <h2 class="sec" style="margin-top:40px">Choosing photos and writing captions</h2>
-  <ol class="steps">
-    <li>
-      <h4>Open photo-tool.html</h4>
-      <p>It's a plain file that sits next to this one — open it in Chrome or Edge on a computer.
-        The first time, it asks you to choose the folder to save into; point it at this site's
-        folder and it remembers it from then on. On a phone, folder-saving can't reach a
-        cloud-synced folder like Dropbox at all (Android's folder picker only sees local storage,
-        and Dropbox's app doesn't support being browsed into that way) — the tool explains the
-        phone route when it detects one.</p>
-    </li>
-    <li>
-      <h4>Pick your keepers, tap Save</h4>
-      <p>Each day's shot list is laid out the same as it is here. Choose a photo for a slot, then
-        tap <b>Save</b> — it resizes the photo, gives it the exact filename that slot needs, and
-        writes it straight into the folder (or, on a phone, hands it to the share sheet so you can
-        send it to Dropbox yourself).</p>
-    </li>
-    <li>
-      <h4>Write a caption, tap Save caption</h4>
-      <p>Every photo has a caption box under it. Whatever you type saves as a same-named text file
-        next to the photo (<code>d1-03.txt</code> beside <code>d1-03.jpg</code>) — this site shows
-        it in place of the shot suggestion once both files exist. Captions save independently of
-        photos, so you can caption a batch of already-taken photos after the fact.</p>
-    </li>
-    <li>
-      <h4>Check progress</h4>
-      <p>Slots fill in with a thumbnail once saved. Reopening the tool later shows you, at a glance,
-        which slots and captions across the whole trip are still outstanding.</p>
-    </li>
-  </ol>
-
-  <h2 class="sec" style="margin-top:44px">Getting the site live</h2>
-  <ol class="steps">
-    <li>
-      <h4>Commit and push</h4>
-      <p>With the new photos and caption text files sitting in the folder alongside
-        <code>index.html</code>, commit them to the repository and push, however you'd normally do
-        that — GitHub Desktop, VS Code's Git panel, and the command line all work the same way
-        here.</p>
-    </li>
-    <li>
-      <h4>Netlify deploys itself</h4>
-      <p>Netlify is already watching the repository, so a push is all it needs — it rebuilds and the
-        new photos and captions are live within about a minute, with nothing to do on Netlify's
-        side.</p>
-    </li>
-  </ol>
-
-  <div class="callout" style="border-left-color:var(--fell)">
-    <p><b>Replacing a photo that's already live?</b> Same filename, new bytes — some browsers will
-      keep showing the old cached copy for a while. Bump the <code>V</code> constant near the top of
-      <code>index.html</code>'s script (e.g. <code>"1"</code> → <code>"2"</code>) to force a fresh
-      fetch everywhere.</p>
-  </div>
-
-  <h2 class="sec" style="margin-top:44px">Shooting notes</h2>
-  <p style="font-size:14.5px;color:var(--ink-dim);font-family:var(--prose);font-weight:300;max-width:68ch;line-height:1.65">
-    Hold the phone level and shoot landscape for the wide frames at the top of each day — they're
-    cropped 3:2. Take the same photograph every single morning (the dog beside that day's first signpost
-    works) so the set has a spine to it. Photograph the pitch before you take the tent down, and the
-    plate of food before you start on it. On the ridge days the good light is before nine and after six —
-    Kidsty Pike at midday will look flat no matter what you do. And keep the lens wiped: a smear of
-    Borrowdale drizzle ruins more hill photos than bad weather ever does. And on the Grasmere day,
-    take one deliberately wide frame looking across the lake — if it's good, save it as
-    <code>hero.jpg</code> and it becomes the picture at the top of this whole site.
-  </p>
-
-  <div style="margin-top:36px"><a class="btn" href="#/">← Back to the stages</a></div>`;
-  v.appendChild(s);
-  drawSpine(null);
 }
 
 /* =========================================================
@@ -934,7 +858,6 @@ function buildChips(){
   const n = $("#chips");
   n.innerHTML = `<a class="chip" href="#/">All</a>` +
     STAGES.map(s=>`<a class="chip" href="#/${s.id}">${s.nav}</a>`).join("") +
-    `<a class="chip" href="#/photos">Photos ?</a>` +
     `<a class="chip ext" href="${PLANNER}" target="_blank" rel="noopener">Planner ↗</a>`;
 }
 function route(){
@@ -945,7 +868,6 @@ function route(){
     if(target===h) c.setAttribute("aria-current","page");
   });
   if(h==="") renderHome();
-  else if(h==="photos") renderPhotos();
   else renderStage(h);
   window.scrollTo({top:0,behavior:"instant"});
   const st = stageById(h);
