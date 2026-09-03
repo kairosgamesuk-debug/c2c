@@ -664,7 +664,10 @@ function buildSlot(stage, i){
 
   const img = new Image();
   img.alt = idea;
-  img.loading = "lazy";
+  // no loading="lazy" here — this element isn't added to the page until after it has
+  // already loaded (see below), so the browser can never judge it's near the viewport
+  // and the fetch would simply never start. Confirmed live: with lazy set, an Image()
+  // built this way never fires "load"; without it, it loads immediately.
   let retried = false;
   img.addEventListener("load",()=>{
     empty.remove();
