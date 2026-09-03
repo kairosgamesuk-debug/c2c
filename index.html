@@ -799,12 +799,12 @@ function renderHome(){
   v.appendChild(s);
 
   // start with the count that only excludes hardcoded skips, then correct it once the
-  // dynamic .skip marker files (from photo-tool.html's Skip button) have been checked
+  // dynamic .skip.txt marker files (from photo-tool.html's Skip button) have been checked
   const allSlots = [];
   STAGES.forEach(st=>st.shots.forEach((sh,i)=>{ if(!sh[2]) allSlots.push(slotFile(st,i)); }));
   $("#cPhotos").textContent = allSlots.length;
   Promise.all(allSlots.map(f=>
-    fetch(f.replace(/\.jpg$/i,".skip")+"?v="+V).then(r=>r.ok).catch(()=>false)
+    fetch(f.replace(/\.jpg$/i,".skip.txt")+"?v="+V).then(r=>r.ok).catch(()=>false)
   )).then(flags=>{
     const skippedCount = flags.filter(Boolean).length;
     if(skippedCount) $("#cPhotos").textContent = allSlots.length - skippedCount;
@@ -854,9 +854,10 @@ function renderStage(id){
     grid.appendChild(fig);
     // a slot can also be skipped on the fly from photo-tool.html's "Skip" button, which
     // writes a small marker file next to where the photo would have gone — d1-04.jpg's
-    // marker is d1-04.skip. If that file exists, drop the slot entirely rather than
-    // showing a permanent empty frame; no code edit needed for this to take effect.
-    fetch(file.replace(/\.jpg$/i,".skip")+"?v="+V)
+    // marker is d1-04.skip.txt (a plain-text file, so the browser can't mangle it with an
+    // extra extension the way it can an unrecognised ".skip"). If that file exists, drop
+    // the slot entirely rather than showing a permanent empty frame; no code edit needed.
+    fetch(file.replace(/\.jpg$/i,".skip.txt")+"?v="+V)
       .then(r=>{ if(r.ok) fig.remove(); })
       .catch(()=>{});
   });
