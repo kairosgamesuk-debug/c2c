@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coast to Coast Journal — Kirkby Stephen to St Bees and back, Aug 2026</title>
+<meta name="description" content="A walking journal of the western Coast to Coast — St Bees to Kirkby Stephen, 25 August – 1 September 2026, with one faithful hound.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   COAST TO COAST JOURNAL
+   Palette: wet Honister slate, bracken green, gorse, Ullswater blue
+   Night types are colour-coded: camp = fell green, bed = gorse,
+   road = water blue. That coding runs through the spine, the
+   chips and the stage headers.
+   ============================================================ */
+:root{
+  /* Ordnance Survey Explorer sheet: map paper, contour orange,
+     woodland green, water blue, printer's ink. */
+  --bg:#EDEAE0;
+  --bg2:#E6E2D6;
+  --panel:#E8E4D9;
+  --panel2:#DFDACB;
+  --line:#CEC7B5;
+  --line-strong:#ADA48C;
+  --ink:#1E2523;
+  --ink-dim:#3D4643;
+  --mute:#797F76;
+  --fell:#5C7C3F;
+  --gorse:#B4693A;   /* contour orange */
+  --sea:#3F708F;
+  --rust:#9E3B29;
+  --cream:#F5F2E8;
+  --display:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif;
+  --prose:"Newsreader",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  --pad:clamp(16px,4vw,40px);
+  --maxw:1120px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:var(--display);
+  font-size:16px;line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  /* the faint 1 km grid of a map sheet, plus a warm wash off one corner */
+  background-image:
+    linear-gradient(rgba(173,164,140,.16) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(173,164,140,.16) 1px, transparent 1px),
+    radial-gradient(1100px 460px at 12% -12%, rgba(180,105,58,.07) 0%, transparent 62%);
+  background-size:64px 64px, 64px 64px, auto;
+  background-attachment:fixed;
+}
+img{max-width:100%;display:block}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:var(--sea)}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--pad)}
+.mono{font-family:var(--mono)}
+
+/* ---------- header ---------- */
+header.top{
+  position:sticky;top:0;z-index:50;
+  background:rgba(237,234,224,.90);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.top-in{display:flex;align-items:center;gap:14px;padding:10px var(--pad);max-width:var(--maxw);margin:0 auto}
+.brand{display:flex;align-items:baseline;gap:9px;text-decoration:none;color:var(--ink);flex:0 0 auto}
+.brand b{font-weight:800;letter-spacing:-.03em;font-size:17px}
+.brand span{font-family:var(--mono);font-size:10.5px;color:var(--mute);letter-spacing:.14em;text-transform:uppercase}
+nav.chips{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin-left:auto;padding:2px 0}
+nav.chips::-webkit-scrollbar{display:none}
+.chip{
+  flex:0 0 auto;border:1px solid var(--line);background:transparent;color:var(--ink-dim);
+  border-radius:999px;padding:6px 12px;font-size:12.5px;font-weight:600;letter-spacing:.01em;
+  text-decoration:none;white-space:nowrap;transition:.18s;
+}
+.chip:hover{border-color:var(--line-strong);color:var(--ink)}
+.chip[aria-current="page"]{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+.chip.ext{color:var(--sea);border-style:dashed;border-color:rgba(63,112,143,.45)}
+.chip.ext:hover{color:var(--sea);border-color:var(--sea);border-style:solid}
+
+/* ---------- signature: elevation spine ---------- */
+.spine{
+  border-bottom:1px solid var(--line);
+  background:linear-gradient(180deg,#E9E5DA 0%,var(--bg) 100%);
+  overflow:hidden;
+}
+.spine-in{max-width:var(--maxw);margin:0 auto;padding:14px var(--pad) 8px}
+.spine-head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-bottom:6px}
+.spine-head p{margin:0;font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--mute)}
+.spine-head em{font-style:normal;color:var(--gorse)}
+.spine svg{width:100%;height:auto;display:block;overflow:visible}
+.spine .ridge{fill:none;stroke:var(--line-strong);stroke-width:1.6;stroke-linejoin:round}
+.spine .ridge-hi{fill:none;stroke:var(--gorse);stroke-width:2.4;stroke-linejoin:round;stroke-linecap:round}
+.spine .hi-fill{fill:url(#hiGrad);opacity:.85}
+.spine .stop{cursor:pointer}
+.spine .stop polygon{stroke:var(--bg);stroke-width:2;transition:.2s}
+.spine .stop:hover polygon{stroke:var(--ink)}
+.spine .stop text{font-family:var(--mono);font-size:9px;fill:var(--mute);letter-spacing:.06em}
+.spine .stop.on text{fill:var(--ink)}
+.spine .base{stroke:var(--line);stroke-width:1;stroke-dasharray:2 4}
+.spine .peak{font-family:var(--mono);font-size:8.5px;fill:var(--gorse);letter-spacing:.05em}
+.spine .gridline{stroke:rgba(173,164,140,.42);stroke-width:.7}
+.spine .gridline.metric{stroke-dasharray:1.5 3.5}
+.spine .htick{font-family:var(--mono);font-size:7px;fill:var(--line-strong);letter-spacing:.04em}
+.spine .land{fill:rgba(173,164,140,.20)}
+
+/* ---------- frontispiece ---------- */
+.frontis{
+  position:relative;width:100vw;margin-left:calc(50% - 50vw);
+  margin:calc(-1 * clamp(26px,5vw,52px)) 0 clamp(24px,4vw,40px) calc(50% - 50vw);
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  background:#DFDACA;
+}
+.frontis-img{position:relative;aspect-ratio:20/7;min-height:230px;overflow:hidden}
+@media(max-width:640px){.frontis-img{aspect-ratio:4/3;min-height:0}}
+.frontis-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.frontis-img svg{position:absolute;inset:0;width:100%;height:100%}
+.frontis:not(.noimg) .frontis-img::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(24,30,28,.74) 0%,rgba(24,30,28,.30) 40%,rgba(24,30,28,0) 72%);
+}
+.frontis-plate{
+  position:absolute;left:0;right:0;bottom:0;z-index:2;
+  padding:0 var(--pad) clamp(16px,3.4vw,30px);max-width:var(--maxw);margin:0 auto;
+}
+.frontis-plate .fp-eyebrow{
+  margin:0 0 8px;font-family:var(--mono);font-size:10.5px;letter-spacing:.17em;
+  text-transform:uppercase;color:rgba(245,242,232,.82);
+}
+.frontis-plate h1{
+  margin:0;font-size:clamp(32px,6.6vw,62px);line-height:.97;letter-spacing:-.045em;
+  font-weight:800;color:var(--cream);text-wrap:balance;
+}
+.frontis-plate h1 i{font-style:normal;color:rgba(245,242,232,.62)}
+.frontis.noimg .frontis-plate .fp-eyebrow{color:var(--mute)}
+.frontis.noimg .frontis-plate h1{color:var(--ink)}
+.frontis.noimg .frontis-plate h1 i{color:var(--mute)}
+.frontis-cap{
+  margin:0 auto;padding:7px var(--pad) 8px;max-width:var(--maxw);
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--mute);border-top:1px solid rgba(173,164,140,.4);
+}
+
+/* ---------- generic bits ---------- */
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);margin:0 0 10px}
+h1.big{
+  font-size:clamp(34px,7.2vw,68px);line-height:.98;letter-spacing:-.045em;font-weight:800;
+  margin:0 0 18px;text-wrap:balance;
+}
+h1.big i{font-style:normal;color:var(--mute)}
+h2.sec{font-size:clamp(20px,3vw,26px);letter-spacing:-.02em;font-weight:700;margin:0 0 4px}
+.lede{font-family:var(--prose);font-size:clamp(17px,2.3vw,20px);line-height:1.65;color:var(--ink-dim);max-width:60ch;font-weight:300}
+.rule{height:1px;background:var(--line);border:0;margin:34px 0}
+section.page{padding:clamp(26px,5vw,52px) 0 70px;animation:rise .4s ease both}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ---------- stage meta ---------- */
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 22px}
+.tag{
+  font-family:var(--mono);font-size:11px;letter-spacing:.08em;padding:5px 10px;border-radius:4px;
+  border:1px solid var(--line);color:var(--ink-dim);background:var(--panel);
+}
+.tag.camp{border-color:rgba(92,124,63,.5);color:var(--fell)}
+.tag.bed{border-color:rgba(180,105,58,.5);color:var(--gorse)}
+.tag.road{border-color:rgba(63,112,143,.45);color:var(--sea)}
+
+/* ---------- journal note ---------- */
+.note{
+  border:1px solid var(--line);border-left:3px solid var(--fell);
+  background:var(--panel);border-radius:3px;padding:16px 18px;margin:26px 0 0;max-width:70ch;
+}
+.note h3{margin:0 0 2px;font-size:13px;letter-spacing:.02em;font-weight:700}
+.note p.hint{margin:0 0 10px;font-size:12.5px;color:var(--mute)}
+.note textarea{
+  width:100%;min-height:120px;resize:vertical;background:var(--bg);color:var(--ink);
+  border:1px solid var(--line);border-radius:3px;padding:12px 13px;
+  font-family:var(--prose);font-size:16.5px;line-height:1.65;font-weight:300;
+}
+.note textarea:focus{outline:2px solid var(--fell);outline-offset:1px;border-color:transparent}
+.note-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:8px}
+.saved{font-family:var(--mono);font-size:11px;color:var(--mute)}
+
+/* ---------- photo grid ---------- */
+.grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px;
+}
+.slot{margin:0;grid-column:span 2}
+.slot.wide{grid-column:span 4}
+.slot.tall{grid-column:span 2}
+@media(max-width:640px){
+  .grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .slot,.slot.tall{grid-column:span 2}
+  .slot.wide{grid-column:span 2}
+}
+.frame{
+  position:relative;width:100%;aspect-ratio:4/3;border-radius:3px;overflow:hidden;
+  background:
+    repeating-linear-gradient(135deg,#E3DFD2 0 7px,#E9E5DA 7px 14px);
+  border:1px dashed var(--line-strong);
+  display:flex;align-items:center;justify-content:center;text-align:center;
+}
+.slot.wide .frame{aspect-ratio:3/2}
+.slot.filled .frame{border-style:solid;border-color:var(--line-strong);background:#1E2523}
+.frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.empty{padding:14px;max-width:34ch}
+.empty .fname{
+  display:inline-block;font-family:var(--mono);font-size:11px;color:var(--gorse);
+  border:1px solid rgba(180,105,58,.35);border-radius:3px;padding:3px 7px;margin-bottom:9px;
+  background:rgba(180,105,58,.08);
+}
+.empty .idea{margin:0;font-size:13px;line-height:1.45;color:var(--ink-dim)}
+.empty .copy{
+  margin-top:10px;background:transparent;border:1px solid var(--line-strong);color:var(--mute);
+  border-radius:3px;padding:4px 9px;font-size:11px;font-family:var(--mono);
+}
+.empty .copy:hover{color:var(--ink);border-color:var(--ink)}
+figcaption{
+  font-family:var(--mono);font-size:11px;color:var(--mute);margin-top:7px;line-height:1.4;
+  display:flex;gap:7px;align-items:baseline;
+}
+figcaption b{color:var(--ink-dim);font-weight:500}
+.emptyacts{display:flex;gap:8px;justify-content:center;align-items:center;margin-top:11px;flex-wrap:wrap}
+.slotacts{
+  position:absolute;left:0;right:0;bottom:0;z-index:3;
+  display:flex;gap:9px;align-items:center;flex-wrap:wrap;padding:9px 10px;
+  background:linear-gradient(to top,rgba(14,18,20,.94) 40%,rgba(14,18,20,0));
+}
+.slotstat{font-family:var(--mono);font-size:10.5px;color:#CFCBBE;flex:1 1 100%}
+.slotacts .linkish{color:#A8CBE0}
+.slotacts .slotstat.ok{color:#9CC178}
+.slotacts .slotstat.bad{color:#E0A08C}
+.slotacts .slotstat.warn{color:#E8B27E}
+.replace{color:#A8CBE0}
+.slotstat.ok{color:var(--fell)}
+.slotstat.bad{color:var(--rust)}
+.slotstat.working{color:var(--gorse)}
+.replace{
+  position:absolute;right:7px;bottom:7px;z-index:3;background:rgba(14,18,20,.8);
+  padding:4px 9px;border-radius:3px;border:1px solid var(--line-strong);
+}
+.badge-preview{
+  position:absolute;top:8px;left:8px;z-index:2;background:rgba(180,105,58,.94);color:var(--cream);
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;padding:3px 6px;border-radius:3px;font-weight:500;
+}
+
+/* ---------- buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;gap:8px;border-radius:3px;padding:10px 16px;
+  font-size:13.5px;font-weight:600;border:1px solid var(--line-strong);background:var(--panel2);
+  color:var(--ink);text-decoration:none;transition:.18s;
+}
+.btn:hover{border-color:var(--ink);background:var(--panel)}
+.btn.go{background:var(--fell);border-color:var(--fell);color:var(--cream)}
+.btn.go:hover{background:#4C6A33;border-color:#4C6A33}
+.btn.sm{padding:7px 12px;font-size:12.5px}
+
+/* ---------- uploader panel ---------- */
+.tool{border:1px solid var(--line);background:var(--bg2);border-radius:4px;padding:18px;margin-top:34px}
+.tool h3{margin:0 0 3px;font-size:15px;letter-spacing:-.01em}
+.tool p{margin:0 0 14px;font-size:13.5px;color:var(--mute);max-width:62ch}
+.pubstat{margin:11px 0 0;font-family:var(--mono);font-size:11.5px;color:var(--mute);line-height:1.5}
+.pubstat.ok{color:var(--fell)}
+.pubstat.bad{color:var(--rust)}
+.pubstat.working{color:var(--gorse)}
+.slotstat.warn{color:var(--gorse)}
+input[type=file]{display:none}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.tokenbox{
+  display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:12px;padding:9px 12px;
+  border:1px solid var(--line);border-radius:3px;background:var(--panel);
+  font-family:var(--mono);font-size:11.5px;
+}
+.tokenbox .ok{color:var(--fell)}
+.tokenbox .ok::before{content:"● ";}
+.tokenbox .warn{color:var(--gorse)}
+.tokenbox .warn::before{content:"○ ";}
+.tokinput{
+  flex:1;min-width:180px;background:var(--bg);border:1px solid var(--line-strong);border-radius:3px;
+  color:var(--ink);padding:8px 10px;font-family:var(--mono);font-size:12px;
+}
+.tokinput:focus{outline:2px solid var(--gorse);outline-offset:1px}
+.linkish{
+  background:none;border:0;padding:0;color:var(--sea);text-decoration:underline;
+  font-family:var(--mono);font-size:11.5px;cursor:pointer;
+}
+.btn:disabled{opacity:.5;cursor:default}
+.btn.sm.go{background:var(--fell);border-color:var(--fell);color:var(--cream)}
+
+/* ---------- home ---------- */
+.stagelist{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:12px;margin-top:26px}
+.card{
+  display:block;text-decoration:none;color:inherit;border:1px solid var(--line);border-radius:4px;
+  background:var(--panel);overflow:hidden;transition:.2s;
+}
+.card:hover{transform:translateY(-2px);border-color:var(--line-strong)}
+.card .cthumb{aspect-ratio:16/10;background:repeating-linear-gradient(135deg,#E3DFD2 0 7px,#E9E5DA 7px 14px);position:relative;border-bottom:1px solid var(--line)}
+.card .cthumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.card .cbody{padding:13px 14px 15px}
+.card .cday{font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--mute)}
+.card h3{margin:5px 0 6px;font-size:16.5px;letter-spacing:-.02em;line-height:1.2}
+.card p{margin:0;font-size:12.5px;color:var(--mute);font-family:var(--mono)}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:6px;vertical-align:1px}
+.dot.camp{background:var(--fell)}.dot.bed{background:var(--gorse)}.dot.road{background:var(--sea)}
+
+.counter{display:flex;gap:26px;flex-wrap:wrap;margin:30px 0 0;padding-top:22px;border-top:1px solid var(--line)}
+.counter div b{display:block;font-size:clamp(26px,4vw,34px);font-weight:800;letter-spacing:-.03em;line-height:1}
+.counter div span{font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--mute)}
+
+/* ---------- how-to page ---------- */
+ol.steps{counter-reset:s;list-style:none;padding:0;margin:22px 0 0;max-width:72ch}
+ol.steps li{position:relative;padding:0 0 22px 46px;border-left:1px solid var(--line);margin-left:13px}
+ol.steps li:last-child{border-left-color:transparent}
+ol.steps li::before{
+  counter-increment:s;content:counter(s,decimal-leading-zero);
+  position:absolute;left:-13px;top:-2px;width:26px;height:26px;border-radius:50%;
+  background:var(--bg);border:1px solid var(--line-strong);color:var(--gorse);
+  font-family:var(--mono);font-size:10.5px;display:flex;align-items:center;justify-content:center;
+}
+ol.steps li h4{margin:0 0 5px;font-size:15px;letter-spacing:-.01em}
+ol.steps li p{margin:0 0 8px;font-size:14.5px;color:var(--ink-dim);font-family:var(--prose);font-weight:300;line-height:1.6}
+code{font-family:var(--mono);font-size:12.5px;background:var(--panel);border:1px solid var(--line);border-radius:3px;padding:1px 5px;color:var(--gorse)}
+.callout{border:1px solid var(--line);border-left:3px solid var(--sea);background:var(--panel);border-radius:3px;padding:14px 16px;margin:20px 0;max-width:72ch}
+.callout p{margin:0;font-size:14px;color:var(--ink-dim)}
+.callout p+p{margin-top:8px}
+
+footer{border-top:1px solid var(--line);padding:26px 0 50px;margin-top:20px}
+footer p{margin:0;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
+footer p.footlink{margin-top:9px;text-transform:none;letter-spacing:.02em;font-size:11.5px}
+footer p.footlink a{color:var(--sea);text-decoration:none;border-bottom:1px solid rgba(63,112,143,.35);padding-bottom:1px}
+footer p.footlink a:hover{border-bottom-color:var(--sea)}
+.toast{
+  position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(16px);
+  background:var(--ink);color:var(--cream);font-size:13px;font-weight:600;padding:9px 16px;border-radius:3px;
+  opacity:0;pointer-events:none;transition:.22s;z-index:99;
+}
+.toast.on{opacity:1;transform:translateX(-50%)}
+:focus-visible{outline:2px solid var(--gorse);outline-offset:2px}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-in">
+    <a class="brand" href="#/"><b>Coast to Coast</b><span>Journal 2026</span></a>
+    <nav class="chips" id="chips" aria-label="Stages"></nav>
+  </div>
+</header>
+
+<div class="spine" id="spine">
+  <div class="spine-in">
+    <div class="spine-head">
+      <p>Route profile · St&nbsp;Bees → Kirkby&nbsp;Stephen · 82 miles</p>
+      <p id="spineNow"><em>Whole walk</em></p>
+    </div>
+    <div id="spineSvg"></div>
+  </div>
+</div>
+
+<main id="view" class="wrap"></main>
+
+<footer>
+  <div class="wrap">
+    <p id="footline">Seven days · 82 miles · One dog · Aug–Sep 2026</p>
+    <p class="footlink"><a href="https://coast-to-coast-walk.netlify.app" target="_blank" rel="noopener">The planning site &mdash; route, kit list, bookings &nearr;</a></p>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* =========================================================
+   1. THE WALK — data
+   ========================================================= */
+const TRIP = { title:"Coast to Coast", sub:"St Bees → Kirkby Stephen", dates:"25 August – 1 September 2026" };
+
+/* the sister site — route, kit list, bookings. Change this one line if the URL moves. */
+const PLANNER = "https://coast-to-coast-walk.netlify.app";
+
+const STAGES = [
+ {
+  id:"arrival", nav:"Arrival", day:"Arrival", date:"Tue 25 Aug", night:"road",
+  title:"Kirkby Stephen", from:"Home", to:"Kirkby Stephen", miles:"by car",
+  where:"Pennine Inn, Market Square", range:null,
+  lede:"Car locked up at Pennine View, bag labelled for Packhorse, one last proper bed. The Packhorse minibus leaves at 08:00 sharp — the walk starts tomorrow, 80 miles west of here.",
+  shots:[
+    ["Boots and pack by the front door before you set off","wide"],
+    ["Market Square and the Pennine Inn sign",""],
+    ["The main bag labelled up for Packhorse",""],
+    ["Kirkby Stephen parish church, or the Cloisters arches",""],
+    ["Dog settling in — first night on the road",""],
+    ["Dinner and the first pint of the trip",""]
+  ]
+ },
+ {
+  id:"day1", nav:"Day 1", day:"Day 1", date:"Wed 26 Aug", night:"camp",
+  title:"St Bees → Ennerdale Bridge", from:"St Bees", to:"Ennerdale Bridge", miles:"~14 miles",
+  where:"Camping at the Fox & Hounds", range:[0,14],
+  lede:"Boots in the Irish Sea, a pebble in the pocket, then red sandstone cliffs, farmland, and the first real climb over Dent Fell into Nannycatch.",
+  shots:[
+    ["The boot dip — toes in the Irish Sea at St Bees beach","wide"],
+    ["Your pebble in the palm of your hand, beach behind it",""],
+    ["The Wainwright start wall / official C2C sign",""],
+    ["St Bees Head — lighthouse and the red cliffs",""],
+    ["Dog on the clifftop path, sea over the shoulder",""],
+    ["Dent Fell summit — the last look back at the sea",""],
+    ["Nannycatch Beck, the hidden green valley",""],
+    ["Tent pitched by the river at the Fox & Hounds",""]
+  ]
+ },
+ {
+  id:"day2", nav:"Day 2", day:"Day 2", date:"Thu 27 Aug", night:"camp",
+  title:"Ennerdale Bridge → Borrowdale", from:"Ennerdale Bridge", to:"Rosthwaite", miles:"~15 miles",
+  where:"Chapel House Farm campsite", range:[14,29],
+  lede:"The big one. Ennerdale Water at first light, the forest and the Liza, then either Haystacks and Innominate Tarn or the gentler line over Honister into Borrowdale.",
+  shots:[
+    ["Ennerdale Water at first light — the whole lake","wide"],
+    ["Anglers Crag and the rocky shoreline scramble",""],
+    ["Dog swimming in the River Liza",""],
+    ["Black Sail Hut, the loneliest hostel in England",""],
+    ["Innominate Tarn on Haystacks — Wainwright's tarn, still water",""],
+    ["Honister slate mine and the drum house ruins",""],
+    ["The long green drop into Borrowdale",""],
+    ["Camp at Chapel House Farm, evening light on the fells",""]
+  ]
+ },
+ {
+  id:"day3", nav:"Day 3", day:"Day 3", date:"Fri 28 Aug", night:"bed",
+  title:"Borrowdale → Grasmere", from:"Rosthwaite", to:"Grasmere", miles:"~9 miles",
+  where:"Lake View Country House — a real bed", range:[29,38],
+  lede:"A short one. Up through Stonethwaite with Eagle Crag above you, over the bog at Greenup Edge, along the Helm Crag ridge and down into Grasmere for a bath and a bed.",
+  shots:[
+    ["Stonethwaite bridge and the beck below","wide"],
+    ["Eagle Crag standing over the valley",""],
+    ["Lining Crag — the steep pull to Greenup",""],
+    ["Greenup Edge, the watershed. Boots probably wet",""],
+    ["Helm Crag — the Lion and the Lamb on the skyline",""],
+    ["First sight of Grasmere vale below",""],
+    ["Grasmere gingerbread, in hand, half eaten",""],
+    ["Dog fully asleep on a bed at Lake View",""]
+  ]
+ },
+ {
+  id:"day4", nav:"Day 4", day:"Day 4", date:"Sat 29 Aug", night:"camp",
+  title:"Grasmere → Patterdale", from:"Grasmere", to:"Patterdale", miles:"~8 miles",
+  where:"Side Farm campsite, Ullswater", range:[38,46],
+  lede:"Short and spectacular. Up to Grisedale Hause under the whole Helvellyn massif, past the tarn, then a long easy fall down Grisedale to Ullswater.",
+  shots:[
+    ["Grisedale Tarn from the hause, fells all round","wide"],
+    ["The Brothers' Parting Stone — Wordsworth's goodbye",""],
+    ["Striding Edge and Helvellyn on the skyline",""],
+    ["Looking back up Grisedale from the valley track",""],
+    ["Ullswater from Side Farm",""],
+    ["Tent door framing the lake, evening",""]
+  ]
+ },
+ {
+  id:"day5", nav:"Day 5", day:"Day 5", date:"Sun 30 Aug", night:"camp",
+  title:"Patterdale → Shap", from:"Patterdale", to:"Shap", miles:"~16 miles",
+  where:"Scar Side Camping, Shap", range:[46,62],
+  lede:"The longest day and the last of the mountains. Angle Tarn, the pull to Kidsty Pike, then Haweswater below you and the slow handover from Lakeland to limestone.",
+  shots:[
+    ["Angle Tarn in the morning, still enough to reflect","wide"],
+    ["Boredale Hause looking back over Patterdale",""],
+    ["Kidsty Pike summit — highest point of the whole walk, 780m",""],
+    ["Haweswater far below from the top of the descent",""],
+    ["The goodbye shot — last Lakeland fell behind you",""],
+    ["The dog, absolutely done in, at Burnbanks",""],
+    ["Shap Abbey ruins in the evening",""],
+    ["Boots off at Scar Side",""]
+  ]
+ },
+ {
+  id:"day6", nav:"Day 6", day:"Day 6", date:"Mon 31 Aug", night:"camp",
+  title:"Shap → Orton", from:"Shap", to:"Orton", miles:"~9 miles",
+  where:"Camping at Orton", range:[62,71],
+  lede:"A short, easy day after the long haul from Patterdale — limestone pavement and a lonely moorland cairn, down into Orton for the night.",
+  shots:[
+    ["Sunrise leaving Shap, the M6 bridge behind you","wide"],
+    ["Limestone pavement at Oddendale",""],
+    ["Robin Hood's Grave — the cairn on the moor",""],
+    ["Orton — the chocolate factory and a pot of tea",""],
+    ["Tent up in Orton, an easy short day done",""]
+  ]
+ },
+ {
+  id:"day7", nav:"Day 7", day:"Day 7", date:"Tue 1 Sep", night:"road",
+  title:"Orton → Kirkby Stephen", from:"Orton", to:"Kirkby Stephen", miles:"~11 miles",
+  where:"Finish — the car at Pennine View", range:[71,82],
+  lede:"The last morning. Limestone country opens into rolling Eden Valley farmland, then the market square, the car, and the end of the western half.",
+  shots:[
+    ["Leaving Orton, limestone country opening out","wide"],
+    ["Sunbiggin Tarn and the open moor",""],
+    ["Smardale Bridge, and the viaduct beyond",""],
+    ["Eden Valley farmland, Kirkby Stephen in sight",""],
+    ["The finish — you, the dog, the pebble, Market Square","wide"]
+  ]
+ }
+];
+
+/* Approximate route profile: [miles from St Bees, metres] */
+const PROFILE = [
+ [0,5],[1,95],[2.5,60],[4.5,55],[7,70],[8.5,180],[9.5,353],[10.5,200],[11.5,150],[14,120],
+ [17,130],[19,190],[21,290],[22,470],[23,597],[24,520],[25,356],[27,120],[29,100],
+ [31,110],[33,380],[34,550],[35,605],[36.5,420],[37.5,330],[38,65],
+ [40,340],[41,585],[42,540],[43.5,380],[46,150],
+ [48,380],[50,480],[51,620],[52,730],[53,780],[54,480],[55,250],[58,230],[60,200],[62,260],
+ [65,290],[68,300],[70,270],[72,260],[74,290],[76,280],[78,210],[80,240],[82,150]
+];
+const STOPS = [
+ {m:0,  label:"St Bees",       type:"road", to:"day1"},
+ {m:14, label:"Ennerdale",     type:"camp", to:"day1"},
+ {m:29, label:"Borrowdale",    type:"camp", to:"day2"},
+ {m:38, label:"Grasmere",      type:"bed",  to:"day3"},
+ {m:46, label:"Patterdale",    type:"camp", to:"day4"},
+ {m:62, label:"Shap",          type:"camp", to:"day5"},
+ {m:71, label:"Orton",         type:"camp", to:"day6"},
+ {m:82, label:"Kirkby Stephen",type:"road", to:"day7"}
+];
+const NIGHT_LABEL = {camp:"Camping", bed:"Bed for the night", road:"Roof / travel"};
+
+/* =========================================================
+   2. Small helpers
+   ========================================================= */
+const $ = (s,r=document)=>r.querySelector(s);
+const el = (t,c,h)=>{const n=document.createElement(t); if(c)n.className=c; if(h!=null)n.innerHTML=h; return n;};
+const stageById = id => STAGES.find(s=>s.id===id);
+const slotFile = (stage,i) => stage.id.replace("arrival","d0").replace("day","d") + "-" + String(i+1).padStart(2,"0") + ".jpg";
+
+/* storage that never throws (works on Netlify, degrades to memory in previews) */
+const store = (()=>{ const mem={};
+  try{ localStorage.setItem("__t","1"); localStorage.removeItem("__t");
+       return {get:k=>localStorage.getItem(k), set:(k,v)=>localStorage.setItem(k,v)};
+  }catch(e){ return {get:k=>(k in mem?mem[k]:null), set:(k,v)=>{mem[k]=v}}; }
+})();
+
+/* cache-busting stamp — bump this by hand (e.g. "2") only if you ever replace a
+   photo under a filename that's already live and want browsers to fetch the new
+   bytes instead of an old cached copy. A brand-new filename never needs it. */
+const V = "1";
+
+let toastT;
+function toast(msg){ const t=$("#toast"); t.textContent=msg; t.classList.add("on");
+  clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove("on"),1800); }
+
+function copyText(text){
+  if(navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(text).then(()=>toast("Copied: "+text)).catch(()=>fallbackCopy(text));
+  } else fallbackCopy(text);
+}
+function fallbackCopy(text){
+  const ta=el("textarea"); ta.value=text; ta.style.position="fixed"; ta.style.opacity="0";
+  document.body.appendChild(ta); ta.select();
+  try{document.execCommand("copy"); toast("Copied: "+text);}catch(e){toast("Copy failed — filename is "+text);}
+  ta.remove();
+}
+
+/* =========================================================
+   3. The elevation spine (signature element + navigation)
+   ========================================================= */
+const SP = {w:1000, h:132, pad:{t:16,b:24,l:6,r:6}, maxH:820, maxM:82};
+const px = m => SP.pad.l + (m/SP.maxM)*(SP.w-SP.pad.l-SP.pad.r);
+const py = h => SP.h - SP.pad.b - (h/SP.maxH)*(SP.h-SP.pad.t-SP.pad.b);
+
+function profilePath(a,b){
+  const pts=[];
+  const at = m => { // interpolate height at mile m
+    for(let i=1;i<PROFILE.length;i++){
+      if(PROFILE[i][0]>=m){ const [m0,h0]=PROFILE[i-1],[m1,h1]=PROFILE[i];
+        const t=(m-m0)/(m1-m0||1); return h0+(h1-h0)*t; }
+    } return PROFILE[PROFILE.length-1][1];
+  };
+  pts.push([a,at(a)]);
+  PROFILE.forEach(p=>{ if(p[0]>a && p[0]<b) pts.push(p); });
+  pts.push([b,at(b)]);
+  return pts.map((p,i)=>(i?"L":"M")+px(p[0]).toFixed(1)+" "+py(p[1]).toFixed(1)).join(" ");
+}
+
+function drawSpine(activeId){
+  const stage = activeId?stageById(activeId):null;
+  const r = stage && stage.range;
+  const full = profilePath(0,82);
+  const floor = SP.h - SP.pad.b;
+  const land = full + ` L${px(82).toFixed(1)} ${floor} L${px(0).toFixed(1)} ${floor} Z`;
+  let hi="", fill="";
+  if(r){ hi = profilePath(r[0],r[1]);
+         fill = hi + ` L${px(r[1]).toFixed(1)} ${floor} L${px(r[0]).toFixed(1)} ${floor} Z`; }
+
+  // map-sheet grid: every ten miles, and the 200 m contour intervals
+  let grid = "";
+  for(let m=10;m<82;m+=10)
+    grid += `<line class="gridline" x1="${px(m).toFixed(1)}" y1="${SP.pad.t-6}" x2="${px(m).toFixed(1)}" y2="${floor}"/>`;
+  for(const h of [200,400,600,800]){
+    grid += `<line class="gridline metric" x1="${px(0)}" y1="${py(h).toFixed(1)}" x2="${px(82)}" y2="${py(h).toFixed(1)}"/>`
+          + `<text class="htick" x="${px(82)+2}" y="${(py(h)+2.5).toFixed(1)}">${h}</text>`;
+  }
+
+  // stops as trig points — the triangle you stand next to on a summit
+  const stops = STOPS.map(s=>{
+    const h = PROFILE.find(p=>p[0]===s.m) ? PROFILE.find(p=>p[0]===s.m)[1] : 100;
+    const on = r && s.m>=r[0] && s.m<=r[1];
+    const col = s.type==="camp"?"var(--fell)":s.type==="bed"?"var(--gorse)":"var(--sea)";
+    const anchor = s.m<5?"start":s.m>77?"end":"middle";
+    const dx = s.m<5?-2:s.m>77?2:0;
+    const x = px(s.m), y = py(h), k = on?6:4.8;
+    const tri = `${x},${(y-k).toFixed(1)} ${(x+k*0.92).toFixed(1)},${(y+k*0.72).toFixed(1)} ${(x-k*0.92).toFixed(1)},${(y+k*0.72).toFixed(1)}`;
+    return `<g class="stop ${on?'on':''}" data-go="${s.to}" role="link" tabindex="0" aria-label="${s.label}">
+      <polygon points="${tri}" fill="${col}"/>
+      <text x="${x+dx}" y="${SP.h-8}" text-anchor="${anchor}">${s.label.toUpperCase()}</text>
+    </g>`;
+  }).join("");
+
+  $("#spineSvg").innerHTML = `
+  <svg viewBox="0 0 ${SP.w} ${SP.h}" role="img" aria-label="Route elevation profile from St Bees to Kirkby Stephen">
+    <defs><linearGradient id="hiGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#B4693A" stop-opacity=".42"/>
+      <stop offset="100%" stop-color="#B4693A" stop-opacity=".04"/>
+    </linearGradient></defs>
+    ${grid}
+    <path class="land" d="${land}"/>
+    <line class="base" x1="${px(0)}" y1="${floor}" x2="${px(82)}" y2="${floor}"/>
+    <text class="peak" x="${px(53)}" y="${py(780)-7}" text-anchor="middle">KIDSTY PIKE 780m</text>
+    ${fill?`<path class="hi-fill" d="${fill}"/>`:""}
+    <path class="ridge" d="${full}"/>
+    ${hi?`<path class="ridge-hi" d="${hi}"/>`:""}
+    ${stops}
+  </svg>`;
+
+  $("#spineNow").innerHTML = stage
+    ? `<em>${stage.day}</em> · ${stage.miles}`
+    : `<em>Whole walk</em> · 82 miles`;
+
+  $("#spineSvg").querySelectorAll(".stop").forEach(g=>{
+    const go = ()=>{ location.hash = "#/"+g.dataset.go; };
+    g.addEventListener("click",go);
+    g.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){e.preventDefault();go();} });
+  });
+}
+
+/* =========================================================
+   4. Photo slots
+   ========================================================= */
+/* The site never uploads or resizes anything itself any more — that all
+   happens in photo-tool.html, which saves correctly-named, correctly-sized
+   photos straight into the repo folder. A slot here just checks whether a
+   file with that exact name exists, and shows it if so. */
+function buildSlot(stage, i){
+  const [idea, size] = stage.shots[i];
+  const file = slotFile(stage, i);
+  const fig = el("figure","slot"+(size==="wide"?" wide":""));
+  fig.dataset.name = file;
+  const frame = el("div","frame");
+  const cap = el("figcaption",null,`<b>${String(i+1).padStart(2,"0")}</b> <span>${idea}</span>`);
+  fig.append(frame, cap);
+
+  // empty state — this slot's filename and its suggestion, until the photo turns up
+  const empty = el("div","empty", `<span class="fname">${file}</span><p class="idea">${idea}</p>`);
+  frame.appendChild(empty);
+
+  const img = new Image();
+  img.alt = idea;
+  img.loading = "lazy";
+  let retried = false;
+  img.addEventListener("load",()=>{
+    empty.remove();
+    frame.appendChild(img);
+    fig.classList.add("filled");
+    // a caption is a plain text file with the same name as the photo (d1-03.jpg -> d1-03.txt),
+    // written by photo-tool.html — show it in place of the shot suggestion once it exists.
+    // Only works once this is actually served over http(s) by Netlify; fetch() can't read
+    // sibling files when index.html is opened directly as a local file.
+    fetch(file.replace(/\.jpg$/i,".txt")+"?v="+V)
+      .then(r=> r.ok ? r.text() : null)
+      .then(text=>{ if(text && text.trim()) cap.querySelector("span").textContent = text.trim(); })
+      .catch(()=>{});
+  });
+  img.addEventListener("error",()=>{
+    // the cache-busted URL may be a stale 404 in this browser — try the bare name once
+    if(!retried){ retried = true; img.src = file; }
+  });
+  img.src = file+"?v="+V;
+  return fig;
+}
+
+
+/* =========================================================
+   6. Journal note box
+   ========================================================= */
+function buildNote(stage){
+  const box = el("div","note");
+  box.innerHTML = `<h3>Notes from the day</h3>
+    <p class="hint">Type as you go — saved on this device. Copy it out later to put it on the website for good.</p>`;
+  const ta = el("textarea");
+  ta.placeholder = "Weather, who you met, what the dog did, what hurt…";
+  ta.value = store.get("note:"+stage.id) || "";
+  const foot = el("div","note-foot");
+  const saved = el("span","saved", ta.value ? "Saved on this device" : "Not written yet");
+  const copy = el("button","btn sm"); copy.textContent = "Copy notes";
+  copy.addEventListener("click",()=>copyText(ta.value || "(nothing written yet)"));
+  foot.append(saved,copy);
+  let t; ta.addEventListener("input",()=>{
+    clearTimeout(t); saved.textContent="Saving…";
+    t = setTimeout(()=>{ store.set("note:"+stage.id, ta.value); saved.textContent="Saved on this device"; },400);
+  });
+  box.append(ta,foot);
+  return box;
+}
+
+/* =========================================================
+   7. Pages
+   ========================================================= */
+/* The title plate. If hero.jpg is in the repository it carries the page;
+   if it isn't, the route's own profile is drawn instead, so the top of the
+   site is never a broken image. */
+function buildFrontis(){
+  const wrap = el("div","frontis noimg");
+  const box  = el("div","frontis-img");
+
+  const bands = [[0,"var(--gorse)",.30],[70,"var(--fell)",.26],[140,"var(--sea)",.20]];
+  const floor = SP.h - SP.pad.b;
+  const shape = profilePath(0,82) + ` L${px(82).toFixed(1)} ${floor} L${px(0).toFixed(1)} ${floor} Z`;
+  box.innerHTML = `<svg viewBox="0 0 ${SP.w} ${SP.h}" preserveAspectRatio="none" aria-hidden="true">
+    ${bands.map(([dy,col,op])=>`<path d="${shape}" fill="${col}" opacity="${op}" transform="translate(0 ${dy/12})"/>`).join("")}
+  </svg>`;
+
+  const plate = el("div","frontis-plate");
+  plate.innerHTML = `
+    <p class="fp-eyebrow">${TRIP.dates} · Wainwright's western half · with one dog</p>
+    <h1>The walk out <i>and the walk back</i></h1>`;
+  box.appendChild(plate);
+
+  const cap = el("p","frontis-cap","Grasmere from Red Bank · drawn from the route profile until hero.jpg lands");
+  wrap.append(box, cap);
+
+  const img = new Image();
+  img.alt = "Grasmere, looking across the lake";
+  img.addEventListener("load",()=>{
+    wrap.classList.remove("noimg");
+    box.querySelector("svg").remove();
+    box.insertBefore(img, plate);
+    cap.textContent = "Grasmere from Red Bank · photochrom, c.1895 · Library of Congress";
+  });
+  img.src = "hero.jpg?v="+V;
+  return wrap;
+}
+
+function renderHome(){
+  const v = $("#view"); v.innerHTML = "";
+  const s = el("section","page");
+  s.appendChild(buildFrontis());
+  const intro = el("div");
+  intro.innerHTML = `
+    <p class="lede">Eight days from Kirkby Stephen to the Irish Sea and all the way back across the
+      Lake District on foot. This is where the photographs and the notes land, one page for each
+      night's stop. Empty frames below are waiting to be filled.</p>
+    <div class="counter">
+      <div><b>82</b><span>Miles walked</span></div>
+      <div><b>7</b><span>Walking days</span></div>
+      <div><b>780m</b><span>High point</span></div>
+      <div><b id="cPhotos">—</b><span>Photo slots</span></div>
+    </div>`;
+  s.appendChild(intro);
+  const list = el("div","stagelist");
+  STAGES.forEach(st=>{
+    const a = el("a","card"); a.href = "#/"+st.id;
+    a.innerHTML = `
+      <div class="cthumb" data-cover="${slotFile(st,0)}"></div>
+      <div class="cbody">
+        <div class="cday">${st.day} · ${st.date}</div>
+        <h3>${st.title}</h3>
+        <p><span class="dot ${st.night}"></span>${st.miles} · ${st.shots.length} photos</p>
+      </div>`;
+    list.appendChild(a);
+  });
+  s.appendChild(list);
+
+  const help = el("p",null,null);
+  help.style.marginTop="30px";
+  help.style.display = "flex";
+  help.style.flexWrap = "wrap";
+  help.style.gap = "8px";
+  help.innerHTML = `<a class="btn" href="#/photos">How to add photos on the trail →</a>` +
+    `<a class="btn" href="${PLANNER}" target="_blank" rel="noopener">The planning site ↗</a>`;
+  s.appendChild(help);
+  v.appendChild(s);
+
+  $("#cPhotos").textContent = STAGES.reduce((n,st)=>n+st.shots.length,0);
+  // cover thumbs
+  v.querySelectorAll(".cthumb").forEach(box=>{
+    const f = box.dataset.cover;
+    const img = new Image(); img.alt="";
+    let retried = false;
+    img.onload = ()=>box.appendChild(img);
+    img.onerror = ()=>{ if(!retried){ retried = true; img.src = f; } };
+    img.src = f+"?v="+V;
+  });
+  drawSpine(null);
+}
+
+function renderStage(id){
+  const st = stageById(id);
+  if(!st) return renderHome();
+  const v = $("#view"); v.innerHTML="";
+  const s = el("section","page");
+  s.innerHTML = `
+    <p class="eyebrow">${st.day} · ${st.date}</p>
+    <h1 class="big">${st.title.replace("→","<i>→</i>")}</h1>
+    <div class="meta">
+      <span class="tag">${st.miles}</span>
+      <span class="tag ${st.night}">${NIGHT_LABEL[st.night]}</span>
+      <span class="tag">${st.where}</span>
+    </div>
+    <p class="lede">${st.lede}</p>`;
+  s.appendChild(buildNote(st));
+
+  const h = el("h2","sec","Photographs");
+  h.style.marginTop="40px";
+  const sub = el("p",null,"Each frame has a filename and a suggestion — save a photo under that name with photo-tool.html and it appears here.");
+  sub.style.cssText="margin:2px 0 0;font-size:13.5px;color:var(--mute)";
+  s.append(h,sub);
+
+  const grid = el("div","grid"); grid.id="grid";
+  st.shots.forEach((_,i)=>grid.appendChild(buildSlot(st,i)));
+  s.appendChild(grid);
+
+  // prev / next
+  const i = STAGES.indexOf(st);
+  const nav = el("div"); nav.style.cssText="display:flex;justify-content:space-between;gap:12px;margin-top:40px";
+  nav.innerHTML =
+    (i>0 ? `<a class="btn" href="#/${STAGES[i-1].id}">← ${STAGES[i-1].day}</a>` : `<a class="btn" href="#/">← All stages</a>`) +
+    (i<STAGES.length-1 ? `<a class="btn" href="#/${STAGES[i+1].id}">${STAGES[i+1].day} →</a>` : `<a class="btn" href="#/photos">Photo help →</a>`);
+  s.appendChild(nav);
+  v.appendChild(s);
+  drawSpine(st.id);
+}
+
+function renderPhotos(){
+  const v=$("#view"); v.innerHTML="";
+  const s = el("section","page");
+  s.innerHTML = `
+  <p class="eyebrow">Practical</p>
+  <h1 class="big">Getting photos<br><i>onto here</i></h1>
+  <p class="lede"><code>photo-tool.html</code> is where you choose the keepers and write their
+    captions — it resizes each photo and saves it under the exact filename a slot needs, and saves
+    each caption as a small matching text file, both straight into this site's folder. This site
+    itself doesn't upload or publish anything any more — it just shows whatever correctly-named
+    files it finds.</p>
+
+  <h2 class="sec" style="margin-top:40px">Choosing photos and writing captions</h2>
+  <ol class="steps">
+    <li>
+      <h4>Open photo-tool.html</h4>
+      <p>It's a plain file that sits next to this one — open it in Chrome or Edge on a computer.
+        The first time, it asks you to choose the folder to save into; point it at this site's
+        folder and it remembers it from then on. On a phone, folder-saving can't reach a
+        cloud-synced folder like Dropbox at all (Android's folder picker only sees local storage,
+        and Dropbox's app doesn't support being browsed into that way) — the tool explains the
+        phone route when it detects one.</p>
+    </li>
+    <li>
+      <h4>Pick your keepers, tap Save</h4>
+      <p>Each day's shot list is laid out the same as it is here. Choose a photo for a slot, then
+        tap <b>Save</b> — it resizes the photo, gives it the exact filename that slot needs, and
+        writes it straight into the folder (or, on a phone, hands it to the share sheet so you can
+        send it to Dropbox yourself).</p>
+    </li>
+    <li>
+      <h4>Write a caption, tap Save caption</h4>
+      <p>Every photo has a caption box under it. Whatever you type saves as a same-named text file
+        next to the photo (<code>d1-03.txt</code> beside <code>d1-03.jpg</code>) — this site shows
+        it in place of the shot suggestion once both files exist. Captions save independently of
+        photos, so you can caption a batch of already-taken photos after the fact.</p>
+    </li>
+    <li>
+      <h4>Check progress</h4>
+      <p>Slots fill in with a thumbnail once saved. Reopening the tool later shows you, at a glance,
+        which slots and captions across the whole trip are still outstanding.</p>
+    </li>
+  </ol>
+
+  <h2 class="sec" style="margin-top:44px">Getting the site live</h2>
+  <ol class="steps">
+    <li>
+      <h4>Commit and push</h4>
+      <p>With the new photos and caption text files sitting in the folder alongside
+        <code>index.html</code>, commit them to the repository and push, however you'd normally do
+        that — GitHub Desktop, VS Code's Git panel, and the command line all work the same way
+        here.</p>
+    </li>
+    <li>
+      <h4>Netlify deploys itself</h4>
+      <p>Netlify is already watching the repository, so a push is all it needs — it rebuilds and the
+        new photos and captions are live within about a minute, with nothing to do on Netlify's
+        side.</p>
+    </li>
+  </ol>
+
+  <div class="callout" style="border-left-color:var(--fell)">
+    <p><b>Replacing a photo that's already live?</b> Same filename, new bytes — some browsers will
+      keep showing the old cached copy for a while. Bump the <code>V</code> constant near the top of
+      <code>index.html</code>'s script (e.g. <code>"1"</code> → <code>"2"</code>) to force a fresh
+      fetch everywhere.</p>
+  </div>
+
+  <h2 class="sec" style="margin-top:44px">Shooting notes</h2>
+  <p style="font-size:14.5px;color:var(--ink-dim);font-family:var(--prose);font-weight:300;max-width:68ch;line-height:1.65">
+    Hold the phone level and shoot landscape for the wide frames at the top of each day — they're
+    cropped 3:2. Take the same photograph every single morning (the dog beside that day's first signpost
+    works) so the set has a spine to it. Photograph the pitch before you take the tent down, and the
+    plate of food before you start on it. On the ridge days the good light is before nine and after six —
+    Kidsty Pike at midday will look flat no matter what you do. And keep the lens wiped: a smear of
+    Borrowdale drizzle ruins more hill photos than bad weather ever does. And on the Grasmere day,
+    take one deliberately wide frame looking across the lake — if it's good, save it as
+    <code>hero.jpg</code> and it becomes the picture at the top of this whole site.
+  </p>
+
+  <div style="margin-top:36px"><a class="btn" href="#/">← Back to the stages</a></div>`;
+  v.appendChild(s);
+  drawSpine(null);
+}
+
+/* =========================================================
+   8. Router
+   ========================================================= */
+function buildChips(){
+  const n = $("#chips");
+  n.innerHTML = `<a class="chip" href="#/">All</a>` +
+    STAGES.map(s=>`<a class="chip" href="#/${s.id}">${s.nav}</a>`).join("") +
+    `<a class="chip" href="#/photos">Photos ?</a>` +
+    `<a class="chip ext" href="${PLANNER}" target="_blank" rel="noopener">Planner ↗</a>`;
+}
+function route(){
+  const h = location.hash.replace(/^#\/?/,"") || "";
+  buildChips();
+  document.querySelectorAll(".chip").forEach(c=>{
+    const target = c.getAttribute("href").replace(/^#\/?/,"");
+    if(target===h) c.setAttribute("aria-current","page");
+  });
+  if(h==="") renderHome();
+  else if(h==="photos") renderPhotos();
+  else renderStage(h);
+  window.scrollTo({top:0,behavior:"instant"});
+  const st = stageById(h);
+  document.title = (st ? st.title+" — " : "") + "Coast to Coast Journal 2026";
+}
+window.addEventListener("hashchange",route);
+route();
+</script>
+</body>
+</html>
